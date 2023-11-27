@@ -1,15 +1,10 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocationNotificationStation;
 
 public class NotificationLocationStationDatabase
 {
-    SQLiteAsyncConnection Database;
+    private SQLiteAsyncConnection? Database;
 
     public NotificationLocationStationDatabase()
     {
@@ -29,25 +24,35 @@ public class NotificationLocationStationDatabase
     public async Task<LocationNotification> GetItemAsync(int id)
     {
         await Init();
-        return await Database.Table<LocationNotification>().Where(i => i.ID == id).FirstOrDefaultAsync();
+
+        return await Database!
+            .Table<LocationNotification>()
+            .Where(i => i.Id == id)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<int> SaveItemAsync(LocationNotification item)
     {
         await Init();
-        if (item.ID != 0)
+
+        Location? location = await Geolocation.Default.GetLastKnownLocationAsync();
+
+        if (item.Id != 0)
         {
-            return await Database.UpdateAsync(item);
+            return await Database!.UpdateAsync(item);
         }
         else
         {
-            return await Database.InsertAsync(item);
+            return await Database!.InsertAsync(item);
         }
+
+
     }
 
     public async Task<int> DeleteItemAsync(LocationNotification item)
     {
         await Init();
-        return await Database.DeleteAsync(item);
+
+        return await Database!.DeleteAsync(item);
     }
 }
