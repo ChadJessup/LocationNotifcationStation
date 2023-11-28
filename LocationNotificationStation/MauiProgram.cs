@@ -25,7 +25,8 @@ public static class MauiProgram
         builder.Services.AddTransient<DetailPage>();
         builder.Services.AddTransient<DetailPageViewModel>();
 
-        builder.Services.AddSingleton<NotificationLocationStationDatabase>();
+        //        builder.Services.AddSingleton<INotificationLocationStationRepository, NotificationLocationStationRepositorySQLite>();
+        builder.Services.AddSingleton<INotificationLocationStationRepository, NotificationLocationStationRepositoryInMemory>();
 
 #if DEBUG
         builder.Logging.AddDebug();

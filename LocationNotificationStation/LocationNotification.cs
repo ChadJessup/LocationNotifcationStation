@@ -1,6 +1,6 @@
 ﻿using SQLite;
 using System.ComponentModel.DataAnnotations;
-namespace LocationNotificationStation;
+namespace LocationNotificationStation.Models;
 
 public class LocationNotification
 {

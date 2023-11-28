@@ -2,6 +2,6 @@
 
 namespace LocationNotificationStation.ViewModels;
 
-public class DetailPageViewModel : ObservableObject
+public partial class DetailPageViewModel : ObservableObject
 {
 }

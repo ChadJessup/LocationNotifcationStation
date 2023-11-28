@@ -1,12 +1,13 @@
-﻿using SQLite;
+﻿using LocationNotificationStation.Models;
+using SQLite;
 
 namespace LocationNotificationStation;
 
-public class NotificationLocationStationDatabase
+public class NotificationLocationStationRepositorySQLite : INotificationLocationStationRepository
 {
     private SQLiteAsyncConnection? Database;
 
-    public NotificationLocationStationDatabase()
+    public NotificationLocationStationRepositorySQLite()
     {
     }
 
@@ -39,7 +40,6 @@ public class NotificationLocationStationDatabase
             .Table<LocationNotification>()
             .ToListAsync();
     }
-
 
     public async Task<int> SaveItemAsync(LocationNotification item)
     {
