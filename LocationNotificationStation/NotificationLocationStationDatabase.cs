@@ -31,11 +31,19 @@ public class NotificationLocationStationDatabase
             .FirstOrDefaultAsync();
     }
 
-    public async Task<int> SaveItemAsync(LocationNotification item)
+    public async Task<List<LocationNotification>> GetItemsAsync()
     {
         await Init();
 
-        Location? location = await Geolocation.Default.GetLastKnownLocationAsync();
+        return await Database!
+            .Table<LocationNotification>()
+            .ToListAsync();
+    }
+
+
+    public async Task<int> SaveItemAsync(LocationNotification item)
+    {
+        await Init();
 
         if (item.Id != 0)
         {
@@ -45,8 +53,6 @@ public class NotificationLocationStationDatabase
         {
             return await Database!.InsertAsync(item);
         }
-
-
     }
 
     public async Task<int> DeleteItemAsync(LocationNotification item)
