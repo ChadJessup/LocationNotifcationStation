@@ -12,6 +12,9 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<LocationNotification> items = [];
 
+    [ObservableProperty]
+    private bool isRefreshing = false;
+
     public MainPageViewModel(INotificationLocationStationRepository repository)
     {
         this.repository = repository;
@@ -31,6 +34,8 @@ public partial class MainPageViewModel : ObservableObject
         {
             Items.Add(location);
         }
+
+        IsRefreshing = false;
     }
 
     [RelayCommand]

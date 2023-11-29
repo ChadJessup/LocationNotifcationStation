@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using LocationNotificationStation.ViewModels;
+﻿using LocationNotificationStation.ViewModels;
 
 namespace LocationNotificationStation;
 
@@ -10,6 +9,8 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 
         this.BindingContext = vm;
+
+		vm.GetLocationsCommand.Execute(this);
 	}
 }
 

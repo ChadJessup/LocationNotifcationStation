@@ -1,5 +1,6 @@
 ﻿using Android;
 using Android.App;
+using Android.Content;
 using Android.Runtime;
 
 [assembly: UsesPermission(Manifest.Permission.AccessCoarseLocation)]
@@ -8,16 +9,24 @@ using Android.Runtime;
 [assembly: UsesFeature("android.hardware.location.gps", Required = false)]
 [assembly: UsesFeature("android.hardware.location.network", Required = false)]
 [assembly: UsesPermission(Manifest.Permission.AccessBackgroundLocation)]
+[assembly: UsesPermission(Manifest.Permission.ForegroundService)]
+[assembly: UsesPermission(Manifest.Permission.ReceiveBootCompleted)]
+[assembly: UsesPermission(Manifest.Permission.SystemAlertWindow)]
 
 namespace LocationNotificationStation;
 
 [Application]
 public class MainApplication : MauiApplication
 {
-	public MainApplication(IntPtr handle, JniHandleOwnership ownership)
-		: base(handle, ownership)
-	{
-	}
+    public MainApplication(IntPtr handle, JniHandleOwnership ownership)
+        : base(handle, ownership)
+    {
+        IntentFilter filter = new("android.intent.action.BOOT_COMPLETED");
+        //		filter.
+        //		RegisterReceiver(new BootBroadcastReceiver(), )
+    }
 
-	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }
