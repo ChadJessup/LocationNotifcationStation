@@ -16,7 +16,7 @@ public class NotificationLocationStationRepositoryInMemory : INotificationLocati
         items.Add(new LocationNotification
         {
             CreatedAt = DateTime.Now,
-            Description = "Don't get the rum and coke!",
+            Description = "Don't get the rum and coke at JJ's!",
             Id = 1,
             IsEnabled = true,
             Latitude = 0.12093,

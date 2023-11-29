@@ -8,17 +8,31 @@
 
     <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
-          RowDefinitions="*,Auto"
+          RowDefinitions="Auto,*,Auto"
           RowSpacing="0">
 
+        <Button Text="New!" Grid.Row="0"/>
+
         <CollectionView Grid.ColumnSpan="2"
+                        Grid.Row="1"
                         ItemsSource="{Binding Items}">
 
             <CollectionView.ItemTemplate>
 
                 <DataTemplate x:DataType="model:LocationNotification">
-                    
-                    <Label Text="{Binding Description}" />
+                    <Grid Padding="10">
+                        <Frame HeightRequest="125" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=GoToDetailsCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid Padding="0" ColumnDefinitions="125,*,125">
+                                <Label Text="Picture" Grid.Column="0" />
+                                <Label Text="{Binding Description}" Grid.Column="1" FontSize="Medium"  FontAutoScalingEnabled="True" />
+                                <Label Text="Toggle" Grid.Column="2" HorizontalTextAlignment="Center" />
+                            </Grid>
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
@@ -26,7 +40,10 @@
         </CollectionView>
 
         <Button Text="Get Locations"
-                Grid.Row="1" 
-                Command="{Binding GetLocationsCommand}"/>
+                Grid.Row="2"
+                Grid.Column="0"
+                Command="{Binding GetLocationsCommand}"
+                Margin="8" />
+
     </Grid>
 </ContentPage>

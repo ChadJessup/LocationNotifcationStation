@@ -32,4 +32,21 @@ public partial class MainPageViewModel : ObservableObject
             Items.Add(location);
         }
     }
+
+    [RelayCommand]
+    private async Task GoToDetailsAsync(LocationNotification ln)
+    {
+        if (ln is null)
+        {
+            return;
+        }
+
+        await Shell.Current.GoToAsync(
+            nameof(DetailPage),
+            true,
+            new Dictionary<string, object>
+            {
+                { "Notification", ln},
+            });
+    }
 }
