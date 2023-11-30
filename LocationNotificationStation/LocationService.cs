@@ -7,6 +7,8 @@ public class LocationService
     private readonly bool stopping = false;
     private readonly IMessenger messenger;
 
+    private Location? lastLocation;
+
     public LocationService(IMessenger messenger)
     {
         this.messenger = messenger;
@@ -19,26 +21,43 @@ public class LocationService
             while (!stopping)
             {
                 token.ThrowIfCancellationRequested();
+
                 try
                 {
                     await Task.Delay(2000);
 
-                    var request = new GeolocationRequest(GeolocationAccuracy.High);
-                    var location = await Geolocation.GetLocationAsync(request);
-                    if (location != null)
+                    if (ShouldGetUpdatedLocation(lastLocation))
                     {
-                        var message = new Messages.LocationMessage(new(location.Latitude, location.Longitude));
+                        var request = new GeolocationRequest(GeolocationAccuracy.Best);
+                        var location = await Geolocation.GetLocationAsync(request);
+                        if (location is not null)
+                        {
+                            var message = new LocationMessage(new(location.Latitude, location.Longitude));
 
-                        this.messenger.Send(message);
+                            this.messenger.Send(message);
+                            lastLocation = location;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    var errormessage = new Messages.LocationErrorMessage();
+                    var errormessage = new LocationErrorMessage();
                     this.messenger.Send(errormessage);
                 }
             }
             return;
         }, token);
+    }
+
+    private bool ShouldGetUpdatedLocation(Location? lastLocation)
+    {
+        if (lastLocation is null)
+        {
+            return true;
+        }
+
+        // TODO: only check for location if last one is a certain age
+
+        return true;
     }
 }

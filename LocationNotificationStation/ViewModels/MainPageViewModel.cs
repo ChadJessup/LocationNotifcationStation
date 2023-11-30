@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using LocationNotificationStation.Data;
 using LocationNotificationStation.Models;
 using System.Collections.ObjectModel;
 
@@ -20,18 +21,22 @@ public partial class MainPageViewModel : ObservableRecipient
     [ObservableProperty]
     private string locationDebug = string.Empty;
 
+    [ObservableProperty]
+    private Location lastLocation;
+
     public MainPageViewModel(INotificationLocationStationRepository repository, IMessenger messenger, IDeviceInfo di)
     {
         this.repository = repository;
         this.messenger = messenger;
 
-        this.messenger.Register<MainPageViewModel, Messages.StartServiceMessage>(this, (r, message) =>
+        this.messenger.Register(this, (MainPageViewModel r, StartServiceMessage message) =>
         {
             LocationDebug = "Received StartService message";
         });
 
-        this.messenger.Register<MainPageViewModel, Messages.LocationMessage>(this, (r, message) =>
+        this.messenger.Register(this, (MainPageViewModel r, LocationMessage message) =>
         {
+            LastLocation = message.Value;
             LocationDebug = $"{DateTime.Now.ToShortDateString()} {message.Value.Latitude} {message.Value.Longitude}";
         });
 
@@ -43,7 +48,7 @@ public partial class MainPageViewModel : ObservableRecipient
 
     private void StartService()
     {
-        var startServiceMessage = new Messages.StartServiceMessage();
+        var startServiceMessage = new StartServiceMessage();
         this.messenger.Send(startServiceMessage);
 
         Preferences.Set("LocationServiceRunning", true);
@@ -83,6 +88,12 @@ public partial class MainPageViewModel : ObservableRecipient
             {
                 { "Notification", ln},
             });
+    }
+
+    [RelayCommand]
+    private async Task NewLocationNotification()
+    {
+
     }
 
     public async Task CheckPermissions()

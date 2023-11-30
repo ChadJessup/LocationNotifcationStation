@@ -14,6 +14,11 @@ public class AndroidLocationService : Service
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10001;
     private readonly CancellationTokenSource _cts = new();
 
+    public AndroidLocationService()
+    {
+        
+    }
+
     public override IBinder? OnBind(Intent? intent)
     {
         return null;
@@ -38,7 +43,7 @@ public class AndroidLocationService : Service
             {
                 if (_cts.IsCancellationRequested)
                 {
-                    var message = new Messages.StopServiceMessage();
+                    var message = new StopServiceMessage();
                     WeakReferenceMessenger.Default.Send(message);
                 }
             }

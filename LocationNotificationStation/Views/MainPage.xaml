@@ -4,6 +4,7 @@
              x:Class="LocationNotificationStation.MainPage"
              xmlns:model="clr-namespace:LocationNotificationStation.Models"
              xmlns:viewmodel="clr-namespace:LocationNotificationStation.ViewModels"
+             xmlns:views="clr-namespace:LocationNotificationStation.Views"
              x:DataType="viewmodel:MainPageViewModel">
 
     <Grid ColumnDefinitions="*,*"
@@ -24,16 +25,12 @@
 
                     <DataTemplate x:DataType="model:LocationNotification">
                         <Grid Padding="10">
-                            <Frame HeightRequest="125" Padding="0">
+                            <Frame HeightRequest="75" Padding="0">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=GoToDetailsCommand}" />
                                 </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*,125">
-                                    <Label Text="Picture" Grid.Column="0" />
-                                    <Label Text="{Binding Description}" Grid.Column="1" FontSize="Medium"  FontAutoScalingEnabled="True" />
-                                    <Switch Grid.Column="2" IsToggled="{Binding IsEnabled}" />
-                                </Grid>
+                                    <views:LocationNotificationView />
                             </Frame>
                         </Grid>
                     </DataTemplate>

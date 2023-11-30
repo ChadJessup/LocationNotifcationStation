@@ -9,7 +9,7 @@
     Title="LocationNotificationStation">
 
     <ShellContent
-        Title="Home"
+        Title="Location Notification Station"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

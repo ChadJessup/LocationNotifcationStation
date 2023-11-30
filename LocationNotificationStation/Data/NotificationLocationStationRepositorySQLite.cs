@@ -1,7 +1,7 @@
 ﻿using LocationNotificationStation.Models;
 using SQLite;
 
-namespace LocationNotificationStation;
+namespace LocationNotificationStation.Data;
 
 public class NotificationLocationStationRepositorySQLite : INotificationLocationStationRepository
 {

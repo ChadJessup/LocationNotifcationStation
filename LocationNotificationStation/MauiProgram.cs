@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LocationNotificationStation.Data;
+using LocationNotificationStation.Models;
 using LocationNotificationStation.ViewModels;
 using Microsoft.Extensions.Logging;
 
@@ -29,6 +31,8 @@ public static class MauiProgram
 
         builder.Services.AddTransient<DetailPage>();
         builder.Services.AddTransient<DetailPageViewModel>();
+
+        builder.Services.AddTransient<LocationNotification>();
 
         //        builder.Services.AddSingleton<INotificationLocationStationRepository, NotificationLocationStationRepositorySQLite>();
         builder.Services.AddSingleton<INotificationLocationStationRepository, NotificationLocationStationRepositoryInMemory>();

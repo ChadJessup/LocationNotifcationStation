@@ -1,6 +1,6 @@
 ﻿using LocationNotificationStation.Models;
 
-namespace LocationNotificationStation;
+namespace LocationNotificationStation.Data;
 
 public interface INotificationLocationStationRepository
 {

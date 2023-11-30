@@ -49,7 +49,7 @@ public class MainActivity : MauiAppCompatActivity
 
     private void SetServiceMethods()
     {
-        this.messenger.Register<MainActivity, Messages.StartServiceMessage>(
+        this.messenger.Register<MainActivity, StartServiceMessage>(
             this, (r, message) =>
             {
                 if (!IsServiceRunning(typeof(AndroidLocationService)))
@@ -65,7 +65,7 @@ public class MainActivity : MauiAppCompatActivity
                 }
             });
 
-        this.messenger.Register<MainActivity, Messages.StopServiceMessage>(
+        this.messenger.Register<MainActivity, StopServiceMessage>(
             this, (r, message) =>
         {
             if (IsServiceRunning(typeof(AndroidLocationService)))

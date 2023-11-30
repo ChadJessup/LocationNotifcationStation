@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System.ComponentModel.DataAnnotations;
+
 namespace LocationNotificationStation.Models;
 
 public class LocationNotification
@@ -15,8 +16,9 @@ public class LocationNotification
 
     public double? CustomRadius { get; set; }
 
-    public DateTime CreatedAt { get; set; }
     public bool IsEnabled { get; set; }
-    public DateTime LastFired { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset LastFired { get; set; }
 
+    public string LatLong => $"{Latitude:F6} {Longitude:F6}";
 }
