@@ -2,7 +2,7 @@
 
 public static class Constants
 {
-    public const string DatabaseFilename = "NotificationLocationStation.db3";
+    public const string DatabaseFilename = "LocationNotificationStation.db3";
 
     public const SQLite.SQLiteOpenFlags Flags =
         SQLite.SQLiteOpenFlags.ReadWrite |

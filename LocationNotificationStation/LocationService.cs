@@ -27,23 +27,15 @@ public class LocationService
                     var location = await Geolocation.GetLocationAsync(request);
                     if (location != null)
                     {
-                        var message = new LocationMessage(new(location.Latitude, location.Longitude));
+                        var message = new Messages.LocationMessage(new(location.Latitude, location.Longitude));
 
-
-
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            this.messenger.Send(message, "Location");
-                        });
+                        this.messenger.Send(message);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        var errormessage = new LocationErrorMessage();
-                        this.messenger.Send(errormessage, "LocationError");
-                    });
+                    var errormessage = new Messages.LocationErrorMessage();
+                    this.messenger.Send(errormessage);
                 }
             }
             return;

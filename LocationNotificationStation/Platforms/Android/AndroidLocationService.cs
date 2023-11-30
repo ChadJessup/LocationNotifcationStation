@@ -3,12 +3,6 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Maui.Controls.Platform;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocationNotificationStation;
 
@@ -18,7 +12,7 @@ namespace LocationNotificationStation;
 public class AndroidLocationService : Service
 {
     public const int SERVICE_RUNNING_NOTIFICATION_ID = 10001;
-    private CancellationTokenSource _cts = new CancellationTokenSource();
+    private readonly CancellationTokenSource _cts = new();
 
     public override IBinder? OnBind(Intent? intent)
     {
@@ -29,7 +23,6 @@ public class AndroidLocationService : Service
     {
         Notification notification = new NotificationHelper().GetServiceStartedNotification();
         StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
-
 
         Task.Run(() =>
         {
@@ -45,13 +38,12 @@ public class AndroidLocationService : Service
             {
                 if (_cts.IsCancellationRequested)
                 {
-                    var message = new StopServiceMessage();
-                    MainThread.BeginInvokeOnMainThread(
-                        () => WeakReferenceMessenger.Default.Send(message, "ServiceStopped")
-                    );
+                    var message = new Messages.StopServiceMessage();
+                    WeakReferenceMessenger.Default.Send(message);
                 }
             }
-        }, _cts.Token);
+        },
+        _cts.Token);
 
         return StartCommandResult.Sticky;
     }

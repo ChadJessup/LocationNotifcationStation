@@ -1,6 +1,5 @@
 ﻿using Android;
 using Android.App;
-using Android.Content;
 using Android.Runtime;
 
 [assembly: UsesPermission(Manifest.Permission.AccessCoarseLocation)]
@@ -21,9 +20,6 @@ public class MainApplication : MauiApplication
     public MainApplication(IntPtr handle, JniHandleOwnership ownership)
         : base(handle, ownership)
     {
-        IntentFilter filter = new("android.intent.action.BOOT_COMPLETED");
-        //		filter.
-        //		RegisterReceiver(new BootBroadcastReceiver(), )
     }
 
 

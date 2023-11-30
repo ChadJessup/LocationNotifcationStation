@@ -3,20 +3,24 @@
 namespace LocationNotificationStation;
 
 // https://www.youtube.com/watch?v=Q_renpfnbk4
-public class StartServiceMessage
+
+public class Messages
 {
-}
+    public class StartServiceMessage
+    {
+    }
 
-public class StopServiceMessage
-{
+    public class StopServiceMessage
+    {
 
-}
+    }
 
-public class LocationMessage(Location value) : ValueChangedMessage<Location>(value)
-{
-}
+    public class LocationMessage(Location value) : ValueChangedMessage<Location>(value)
+    {
+    }
 
-public class LocationErrorMessage
-{
+    public class LocationErrorMessage
+    {
 
+    }
 }

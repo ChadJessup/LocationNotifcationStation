@@ -4,13 +4,20 @@ namespace LocationNotificationStation;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(MainPageViewModel vm)
-	{
-		InitializeComponent();
+    private readonly MainPageViewModel vm;
+
+    public MainPage(
+        MainPageViewModel vm)
+    {
+        InitializeComponent();
 
         this.BindingContext = vm;
+        this.vm = vm;
+        vm.GetLocationsCommand.Execute(this);
+    }
 
-		vm.GetLocationsCommand.Execute(this);
-	}
+    protected override async void OnAppearing()
+    {
+        await this.vm.CheckPermissions();
+    }
 }
-

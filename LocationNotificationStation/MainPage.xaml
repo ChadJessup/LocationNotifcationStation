@@ -32,7 +32,7 @@
                                 <Grid Padding="0" ColumnDefinitions="125,*,125">
                                     <Label Text="Picture" Grid.Column="0" />
                                     <Label Text="{Binding Description}" Grid.Column="1" FontSize="Medium"  FontAutoScalingEnabled="True" />
-                                    <Label Text="Toggle" Grid.Column="2" HorizontalTextAlignment="Center" />
+                                    <Switch Grid.Column="2" IsToggled="{Binding IsEnabled}" />
                                 </Grid>
                             </Frame>
                         </Grid>
@@ -48,6 +48,9 @@
                 Grid.Column="0"
                 Command="{Binding GetLocationsCommand}"
                 Margin="8" />
-
+        
+        <Label Text="{Binding LocationDebug}"
+               Grid.Row="2"
+               Grid.Column="1"/>
     </Grid>
 </ContentPage>
